@@ -1,15 +1,14 @@
 package main
 
-import (
+/*import (
 	"database/sql"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
 	"xorm.io/xorm"
 )
 
@@ -40,7 +39,14 @@ func main() {
 		log.Fatal(err)
 	}
 	r := gin.Default()
-
+	r.GET("/articleslist", func(c *gin.Context) {
+		articles, err := getAllArticles(engine)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to retrieve articles"})
+			return
+		}
+		c.JSON(http.StatusOK, articles)
+	})
 	r.GET("/articles/:id", func(c *gin.Context) {
 		id, _ := strconv.Atoi(c.Param("id"))
 		article, err := getArticle(engine, id)
@@ -116,3 +122,9 @@ func deleteArticle(engine *xorm.Engine, id int) {
 		log.Fatal(err)
 	}
 }
+func getAllArticles(engine *xorm.Engine) ([]Article, error) {
+	var articles []Article
+	err := engine.Find(&articles)
+	return articles, err
+}
+*/
